@@ -10,11 +10,39 @@
 
 ## Inversion of Control (IoC)- XML Configuration
 The approach of outsourcing the construction and managementof objects
-1. interface class
-2. implements method
-4.
 
-```javascript
-var s = "JavaScript syntax highlighting";
-alert(s);
+create AppicationContext.xml
+1. Step 1 Configure your Spring Beans
 ```
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+    http://www.springframework.org/schema/beans/spring-beans.xsd
+    http://www.springframework.org/schema/context
+    http://www.springframework.org/schema/context/spring-context.xsd">
+
+	<!-- load the properties file: sport.properties -->
+	<context:property-placeholder location="classpath:sports.properties" />
+
+  <!-- Define your beans here -->
+
+	<!--Step 1 -->
+	<bean id="myCoach" class="com.manit.spring.home.basic.TrackCoach">
+
+		<!-- set up constructor injection -->
+		<constructor-arg ref="myFortuneService" />
+	</bean>
+
+
+</beans>
+
+
+
+
+
+
+
+```
+
+
