@@ -58,7 +58,7 @@ public class Student {
 }
 ```
 
-2.2 Map fields to database columns
+2.2 Map fields to database columns ** Student.java**
 
 ```
 @Entity
@@ -83,12 +83,12 @@ public class Student {
 
 ### Step 3 Develop Java Code to perform database operations
 
-####Two key Plays
+#### Two key Plays
 **Class** = **Desriptioin**
 1. **SessionFactory** = Reads the hibernate config file Creates Session objects Heavy-weight object Only create once in your app
 2. **Session** = Wraps a JDBC connection Main object used to save/retrieve objects Short-lived object Retrieve from SessionFactory
 
-3.1 Java Code Set up
+3.1 Java Code Set up ** CreateStudentDemo.java **
 ```
 pulic static void main(String[] args){
 	SessionFactory factory = new Configuration()
@@ -129,16 +129,48 @@ pulic static void main(String[] args){
 ```
 * That so insert to database complete.
 
-### Hibernate Identity - Primary Key
+#### Hibernate Identity - Primary Key
 ```
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
  	@Column(name="id")
   	private int id;
+	
+	...
 ```
 * Let MySQL handle the generation AUTO_INCREMENT
 
-### ID Generation Strategies
+#### ID Generation Strategies
 
 ![image](https://user-images.githubusercontent.com/11830385/28158594-63cc690e-67e4-11e7-9f2d-c229d513c7da.png)
 
+** @GeneratedValue this code it can insert multi row in database
+
+```
+**test auto_increment**
+ALTER TABLE new_db_test.student AUTO_INCREMENT=3000
+truncate new_db_test.student
+```
+
+---
+
+1. Create objects /
+2. Read objects
+3. Update objects
+4. Delete object
+
+## Retrieving an Object
+
+```
+//create java object
+Student theStudent = new Student("Daffy", "Duck","daff@love.com");
+
+// save it to database
+session.save(theStudent);
+
+// now retrieve/read from database using the primary key
+Student myStudent = 
+	session.get(Student.class, theStudent.getId());
+```
+
+3.2 Read data from data base **ReadStudentDemo.java**
