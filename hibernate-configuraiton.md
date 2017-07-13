@@ -1,15 +1,17 @@
-1.Add Hibernate Configuration file 
-2.Annotate Java Class
-3.Develop Java Code to per for m database operrations
+
+1. Add Hibernate Configuration file 
+2. Annotate Java Class
+3. Develop Java Code to per for m database operrations
 
 
-step 1 Add Hibernate Configuration file 
+..*step 1 Add Hibernate Configuration file 
 
 Hebernate >><<JDBC >><< DB
 
 hibernate.cfg.xml Paste in root of "src" directory
 
-```<!DOCTYPE hibernate-configuration PUBLIC
+```
+<!DOCTYPE hibernate-configuration PUBLIC
         "-//Hibernate/Hibernate Configuration DTD 3.0//EN"
         "http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
 
@@ -40,7 +42,7 @@ hibernate.cfg.xml Paste in root of "src" directory
 </hibernate-configuration>```
 
 
-step 2 Annotate Java Class
+..*step 2 Annotate Java Class
 Java class >> << Hibernate >> << Database Table
 
 2.1 Map class to database table
