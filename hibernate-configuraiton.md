@@ -4,7 +4,7 @@
 3. Develop Java Code to per for m database operrations
 
 
-..*step 1 Add Hibernate Configuration file 
+..* step 1 Add Hibernate Configuration file 
 
 Hebernate >><<JDBC >><< DB
 
@@ -46,15 +46,18 @@ hibernate.cfg.xml Paste in root of "src" directory
 Java class >> << Hibernate >> << Database Table
 
 2.1 Map class to database table
+
 ```
 @Entity
 @Table(name="student")
 public class Student {
   ...
 }
+
 ```
 
 2.2 Map fields to database columns
+
 ```
 @Entity
 @Table(name="student")
@@ -69,6 +72,7 @@ public class Student {
   
   ...
 }
+
 ```
 
 
