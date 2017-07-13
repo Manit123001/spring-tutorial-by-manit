@@ -1,10 +1,12 @@
+# Hibernate Config Basic
 
 1. Add Hibernate Configuration file 
 2. Annotate Java Class
-3. Develop Java Code to per for m database operrations
+3. Develop Java Code to perform database operrations
 
-⋅⋅* Unordered sub-list.
-⋅⋅* step 1 Add Hibernate Configuration file 
+---
+
+### Step 1 Add Hibernate Configuration file 
 
 Hebernate >><<JDBC >><< DB
 
@@ -39,10 +41,11 @@ hibernate.cfg.xml Paste in root of "src" directory
  
     </session-factory>
 
-</hibernate-configuration>```
+</hibernate-configuration>
+```
 
 
-..*step 2 Annotate Java Class
+### Step 2 Annotate Java Class
 Java class >> << Hibernate >> << Database Table
 
 2.1 Map class to database table
@@ -53,7 +56,6 @@ Java class >> << Hibernate >> << Database Table
 public class Student {
   ...
 }
-
 ```
 
 2.2 Map fields to database columns
@@ -74,5 +76,16 @@ public class Student {
 }
 
 ```
+- Create Default Constructor
+- Generate Constructor using fields.
+- Generate Getter and Setter.
 
 
+### Step 3 Develop Java Code to perform database operations
+
+* Two key Plays
+**Class**
+..1. SessionFactory = Reads the hibernate config file Creates Session objects Heavy-weight object Only create once in your app
+..2. Session = Wraps a JDBC connection Main object used to save/retrieve objects Short-lived object Retrieve from SessionFactory
+
+3.1 
