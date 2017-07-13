@@ -65,7 +65,7 @@ public class Student {
 @Table(name="student")
 public class Student {
  
-  <p>@Id</p>
+  @Id
   @Column(name="id")
   private int id;
   
@@ -83,9 +83,62 @@ public class Student {
 
 ### Step 3 Develop Java Code to perform database operations
 
-* Two key Plays
-**Class**
-..1. SessionFactory = Reads the hibernate config file Creates Session objects Heavy-weight object Only create once in your app
-..2. Session = Wraps a JDBC connection Main object used to save/retrieve objects Short-lived object Retrieve from SessionFactory
+####Two key Plays
+**Class** = **Desriptioin**
+1. **SessionFactory** = Reads the hibernate config file Creates Session objects Heavy-weight object Only create once in your app
+2. **Session** = Wraps a JDBC connection Main object used to save/retrieve objects Short-lived object Retrieve from SessionFactory
 
-3.1 
+3.1 Java Code Set up
+```
+pulic static void main(String[] args){
+	SessionFactory factory = new Configuration()
+		.configure("hibernate.cf.xml")
+		.addAnnotatedClass(Student.class)
+		.buildSessionFactory();
+		
+	Session session = factory.getCurentSession();
+	
+	Try {
+		// now use the session object to save/retrieve Java objects
+	} finally{
+		factory.close();
+	}
+		
+}
+```
+
+* Save a Java Object
+
+```
+	Try {
+		// create a student object
+		Student tempStudent = new Student("Paul", "Wall", "paul@love.com");
+		
+		// start transaction
+		session.beginTransaction();
+				
+		// save the student
+		session.save(tempStudent);
+		
+		//commit the transaction
+		session.getTransaction().commit();
+		
+	} finally{
+		factory.close();
+	}
+```
+* That so insert to database complete.
+
+### Hibernate Identity - Primary Key
+```
+	@Id
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
+ 	@Column(name="id")
+  	private int id;
+```
+* Let MySQL handle the generation AUTO_INCREMENT
+
+### ID Generation Strategies
+
+![image](https://user-images.githubusercontent.com/11830385/28158594-63cc690e-67e4-11e7-9f2d-c229d513c7da.png)
+
