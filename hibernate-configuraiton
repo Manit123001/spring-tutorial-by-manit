@@ -1,0 +1,72 @@
+1.Add Hibernate Configuration file 
+2.Annotate Java Class
+3.Develop Java Code to per for m database operrations
+
+
+step 1 Add Hibernate Configuration file 
+
+Hebernate >><<JDBC >><< DB
+
+hibernate.cfg.xml Paste in root of "src" directory
+
+```<!DOCTYPE hibernate-configuration PUBLIC
+        "-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+        "http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
+
+<hibernate-configuration>
+
+    <session-factory>
+
+        <!-- JDBC Database connection settings -->
+        <property name="connection.driver_class">com.mysql.jdbc.Driver</property>
+        <property name="connection.url">jdbc:mysql://jdbc:mysql://10.100.60.178/new_db_test</property>
+        <property name="connection.username">Developer</property>
+        <property name="connection.password">password</property>
+
+        <!-- JDBC connection pool settings ... using built-in test pool -->
+        <property name="connection.pool_size">1</property>
+
+        <!-- Select our SQL dialect -->
+        <property name="dialect">org.hibernate.dialect.MySQLDialect</property>
+
+        <!-- Echo the SQL to stdout -->
+        <property name="show_sql">true</property>
+
+		<!-- Set the current session context -->
+		<property name="current_session_context_class">thread</property>
+ 
+    </session-factory>
+
+</hibernate-configuration>```
+
+
+step 2 Annotate Java Class
+Java class >> << Hibernate >> << Database Table
+
+2.1 Map class to database table
+```
+@Entity
+@Table(name="student")
+public class Student {
+  ...
+}
+```
+
+2.2 Map fields to database columns
+```
+@Entity
+@Table(name="student")
+public class Student {
+ 
+  @Id
+  @Column(name="id")
+  private int id;
+  
+  @Column(name="first_name")
+  private String firstName;
+  
+  ...
+}
+```
+
+
