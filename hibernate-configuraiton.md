@@ -273,6 +273,6 @@ Develop code to delete an object by primary key.
 
 
 ```
-
+[Download](http://www.luv2code.com/downloads/udemy-spring-hibernate/solution-practice-activities.zip)
 
 
