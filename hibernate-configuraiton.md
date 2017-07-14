@@ -202,7 +202,9 @@ displayStudents(theStudents);
 ```
 
 * log4j show log biding parameter
+
 [View Hibernate SQL parameter Value](https://www.udemy.com/spring-hibernate-tutorial/learn/v4/t/lecture/5835894?start=0)
+
 [download here ](http://central.maven.org/maven2/log4j/log4j/1.2.17/log4j-1.2.17.jar)
 
 ---
@@ -232,7 +234,7 @@ session
 ---
 
 #### 4. Deleting object(s)
-Delete a Student ** DeleteStudentDemo.java**
+Delete a Student **DeleteStudentDemo.java**
 
 ```
 int studentId = 1;
