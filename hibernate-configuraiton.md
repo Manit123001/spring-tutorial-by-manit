@@ -82,13 +82,17 @@ public class Student {
 
 
 ### Step 3 Develop Java Code to perform database operations
-
+#### Hibernate CRUD Apps
 1. Create objects /
 2. Read objects
 3. Update objects
 4. Delete object
 
-#### 1.Java Code Set up ** CreateStudentDemo.java **
+![image](https://user-images.githubusercontent.com/11830385/28202552-1510b1be-68a0-11e7-8f28-defd5f598700.png)
+
+
+#### 1. Create object
+Java Code Set up ** CreateStudentDemo.java **
 
 #### Two key Plays
 **Class** = **Desriptioin**
@@ -160,7 +164,8 @@ truncate new_db_test.student
 
 ---
 
-#### 2.Read data from data base 
+#### 2. Read objects
+Read data from data base 
 
 * Retrieving an Object
 File **ReadStudentDemo.java , PrimaryKeyDemo.java**
@@ -201,4 +206,54 @@ displayStudents(theStudents);
 [download here ](http://central.maven.org/maven2/log4j/log4j/1.2.17/log4j-1.2.17.jar)
 
 
-#### 3.Update 
+#### 3. Update objects
+Update a Student
+
+```
+int studentId = 1;
+Student myStudent = session.get(Student.class, studentId);
+
+// update first name to "Scooby"
+myStudent.setFirstName("Scooby");
+
+// commit the transaction
+session.getTransaction().commit();
+
+```.
+
+**Update email for all students**
+```
+session
+	.createQuery("update Student set email='foo@gmail.com'")
+	.executeUpdate();
+```
+
+#### 4. Deleting object(s)
+Delete a Student
+
+```
+int studentId = 1;
+
+Student myStudent = session.get(Student.class, studentId);
+
+//delete the student 
+session.delete(myStudent);
+
+// commit the transaction
+session.getTransaction().commit();
+```
+
+**Another way of deleting**
+```
+session
+	.createQuery("delete from Student where id = 2")
+	.executeUpdate();
+
+```
+
+
+
+
+
+
+
