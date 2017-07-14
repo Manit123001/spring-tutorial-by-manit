@@ -83,12 +83,18 @@ public class Student {
 
 ### Step 3 Develop Java Code to perform database operations
 
+1. Create objects /
+2. Read objects
+3. Update objects
+4. Delete object
+
+#### 1.Java Code Set up ** CreateStudentDemo.java **
+
 #### Two key Plays
 **Class** = **Desriptioin**
 1. **SessionFactory** = Reads the hibernate config file Creates Session objects Heavy-weight object Only create once in your app
 2. **Session** = Wraps a JDBC connection Main object used to save/retrieve objects Short-lived object Retrieve from SessionFactory
 
-3.1 Java Code Set up ** CreateStudentDemo.java **
 ```
 pulic static void main(String[] args){
 	SessionFactory factory = new Configuration()
@@ -154,12 +160,10 @@ truncate new_db_test.student
 
 ---
 
-1. Create objects /
-2. Read objects
-3. Update objects
-4. Delete object
+#### 2.Read data from data base 
 
-## Retrieving an Object
+* Retrieving an Object
+File **ReadStudentDemo.java , PrimaryKeyDemo.java**
 
 ```
 //create java object
@@ -173,4 +177,28 @@ Student myStudent =
 	session.get(Student.class, theStudent.getId());
 ```
 
-3.2 Read data from data base **ReadStudentDemo.java**
+* Querying Objects with Hibernate 
+File **QueryStudentDemo.java**
+- HIBERNATE 5.2+ UPDATE Below
+```
+Replace
+session.createQuery("from Student").list()
+With
+session.createQuery("from Student").getResultList()
+```
+Code createQuery
+```
+// query students: lastName='Doe'
+theStudents = session.createQuery("from Student s where s.id='1'").getResultList();
+
+// display the students
+System.out.println("\n\nStudents who have last name of Doe");
+displayStudents(theStudents);
+```
+
+* log4j show log biding parameter
+[View Hibernate SQL parameter Value](https://www.udemy.com/spring-hibernate-tutorial/learn/v4/t/lecture/5835894?start=0)
+[download here ](http://central.maven.org/maven2/log4j/log4j/1.2.17/log4j-1.2.17.jar)
+
+
+#### 3.Update 
