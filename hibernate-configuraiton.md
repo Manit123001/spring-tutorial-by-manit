@@ -205,9 +205,10 @@ displayStudents(theStudents);
 [View Hibernate SQL parameter Value](https://www.udemy.com/spring-hibernate-tutorial/learn/v4/t/lecture/5835894?start=0)
 [download here ](http://central.maven.org/maven2/log4j/log4j/1.2.17/log4j-1.2.17.jar)
 
+---
 
 #### 3. Update objects
-Update a Student
+Update a Student **UpdateStudentDemo.java**
 
 ```
 int studentId = 1;
@@ -219,7 +220,7 @@ myStudent.setFirstName("Scooby");
 // commit the transaction
 session.getTransaction().commit();
 
-```.
+```
 
 **Update email for all students**
 ```
@@ -228,8 +229,10 @@ session
 	.executeUpdate();
 ```
 
+---
+
 #### 4. Deleting object(s)
-Delete a Student
+Delete a Student ** DeleteStudentDemo.java**
 
 ```
 int studentId = 1;
