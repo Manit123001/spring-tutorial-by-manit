@@ -1,4 +1,35 @@
-# Hibernate Config Basic
+# Setting up Hibernate
+1. Create Eclipse Project
+2. Download Hibernate Files [Hibernate ORM](http://hibernate.org/orm/)
+3. Download MySQL JDBC Driver Connector/J[JDBC Download](https://dev.mysql.com/downloads/connector/)
+4. Add JAR files to Eclipse Project... Build Path
+
+#Testing JDBC Connection
+```
+public static void main(String[] args) {
+	String jdbcUrl = "jdbc:mysql://10.100.60.178/new_db_test";
+	String user = "Developer";
+	String pass = "password";
+		
+	try{
+			
+		System.out.println("Connecting to database : " + jdbcUrl);
+			
+		Connection myConn = 
+				DriverManager.getConnection(jdbcUrl, user, pass);
+			
+		System.out.println("Connection successful!!!");
+			
+	}
+	catch(Exception exc){
+			exc.printStackTrace();
+	}
+}
+```	
+	
+---
+
+# Hibernate Config with Annotations Basic
 
 1. Add Hibernate Configuration file 
 2. Annotate Java Class
@@ -82,8 +113,8 @@ public class Student {
 
 
 ### Step 3 Develop Java Code to perform database operations
-#### Hibernate CRUD Apps
-1. Create objects /
+### Hibernate CRUD Apps
+1. Create objects 
 2. Read objects
 3. Update objects
 4. Delete object
