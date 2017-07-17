@@ -230,4 +230,143 @@ public class CustomerController {
 
 ![image](https://user-images.githubusercontent.com/11830385/28255382-43d26a00-6ae0-11e7-9998-a25b770dc16f.png)
 
+---
+## Hibernate Project - Part 3
+### @GetMapping and @PostMapping
+
+![image](https://user-images.githubusercontent.com/11830385/28258820-75c11346-6afd-11e7-8137-c1362c06ab14.png)
+
+```
+@RequestMapping(path="/processForm", method=RequestMethod.POST)
+public String processForm(){
+	...
+}
+```
+* This mapping ONLY handles **POST** method
+* Any other HTTP REQUEST method will get rejected
+
+### New Annotation Short-Cut
+```
+@PostMapping("/processForm")
+public String processForm(...){
+	...
+}
+
+```
+* New annotation: @PostMapping
+* This mapping ONLY handles POST method
+* Any other HTTP REQUEST method will get rejected
+
+![image](https://user-images.githubusercontent.com/11830385/28259100-d64129a8-6afe-11e7-8287-ad276fa8cc74.png)
+
+### Recap : New Annotations
+* @GetMapping
+* @PostMapping
+
+### Use New Annotation: @GetMapping
+
+* Refactor : Change to use @GetMapping
+![image](https://user-images.githubusercontent.com/11830385/28260136-df5917bc-6b03-11e7-89f0-0ebef15bda72.png)
+
+![image](https://user-images.githubusercontent.com/11830385/28254293-ba9f9474-6ad5-11e7-81d2-d6dbe97df2c4.png)
+
+#service
+![image](https://user-images.githubusercontent.com/11830385/28260376-ff361516-6b04-11e7-8967-76944a81285d.png)
+![image](https://user-images.githubusercontent.com/11830385/28260435-3ec11dfc-6b05-11e7-911f-4cf270fbe871.png)
+
+![image](https://user-images.githubusercontent.com/11830385/28260632-2a217c1a-6b06-11e7-9bfd-ad4c7218c17b.png)
+
+
+![image](https://user-images.githubusercontent.com/11830385/28260682-7278ef34-6b06-11e7-823b-fa2ae0eba89b.png)
+
+### Specialized Annotation for Services
+* @service applied to Service implementations
+* Spring will automatically register the Service implementation
+* thanks to component-scanning
+
+
+![image](https://user-images.githubusercontent.com/11830385/28260832-fe6a38a4-6b06-11e7-909e-8173798523c6.png)
+#### Step 1: Define Service interface
+```
+public interface CustomerService{
+	public List<Customer> getCustomer();
+}
+```
+#### Step 2: Define Service implementation
+```
+@Service
+public class Customer ServiceImpl implements CustomerService{
+	@Autowired
+	private CustomerDAO customerDAO;
+	
+	@Transactional
+	public List<Customer> geCustomer(){
+	...
+	}
+}
+```
+![image](https://user-images.githubusercontent.com/11830385/28262194-60bce89e-6b0c-11e7-88b0-2483a82d069e.png)
+
+![image](https://user-images.githubusercontent.com/11830385/28262201-6867212c-6b0c-11e7-9c28-2a7e4351462d.png)
+
+####  Step 1 Create package for our Service
+* 1. com.manit.spring.service
+* 2. Create Service interface (CustomerService.java)
+```
+public interface CustomerService {	
+	public List<Customer> getCustomers();
+}
+```
+* 3. Create Service implementation (CustomerServiceImpl.java) Implement CustomerService.java
+```
+@Service
+public class CustomerServiceImpl implements CustomerService {
+
+	// need to inject customer dao
+	@Autowired
+	private CustomerDAO customerDAO;
+	
+	@Override
+	@Transactional
+	public List<Customer> getCustomers() {
+		return customerDAO.getCustomers();
+	}
+
+}
+```
+* 4. Update DAO implementation - remove @Transactional 
+(CustomerDAOImpl.java)
+
+
+![image](https://user-images.githubusercontent.com/11830385/28262816-af040ef4-6b0e-11e7-9e84-463033e620c0.png)
+
+* 5. Update **Controller** - inject CustomerService
+![image](https://user-images.githubusercontent.com/11830385/28262877-f081e7e8-6b0e-11e7-8446-f9c9d206544c.png)
+```
+@Controller
+@RequestMapping("/customer")
+public class CustomerController {
+
+	// need to injecdt our customer service
+	@Autowired
+	private CustomerService customerService;
+	
+	@GetMapping("/list")
+	public String listCustomer(Model theModel) {
+
+		// get customers from the dao
+		List<Customer> theCustomers = customerService.getCustomers();
+
+		// add the customers to the model
+		theModel.addAttribute("customers", theCustomers);
+
+		return "list-customers";
+	}
+	
+}
+
+```
+
+** Delegate calls to Service
+![image](https://user-images.githubusercontent.com/11830385/28263449-012f773e-6b11-11e7-998f-314d19a0e750.png)
 
