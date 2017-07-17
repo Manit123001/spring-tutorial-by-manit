@@ -66,6 +66,8 @@ public class Customer {
 ```
 
 2. create DAO
+* CustomerDAO.java
+* CustomerDAOImpl.java
 
 
 ![image](https://user-images.githubusercontent.com/11830385/28254616-6d88da12-6ad8-11e7-9f5c-02e5bfb1f5dc.png)
@@ -137,3 +139,95 @@ public class CustomerDAOImpl implements CustomerDAO {
 
 }
 ```
+
+3. Create CustomerController.java
+
+![image](https://user-images.githubusercontent.com/11830385/28255021-79a7af18-6adc-11e7-9a9f-3ba57870c4ea.png)
+### update our Controller
+![image](https://user-images.githubusercontent.com/11830385/28255008-6427b2d2-6adc-11e7-8154-1d11016832bd.png)
+```
+@Controller
+@RequestMapping("/customer")
+public class CustomerController {
+
+	// need to inject the customer dao
+	@Autowired
+	private CustomerDAO customerDAO;
+
+	@RequestMapping("/list")
+	public String listCustomer(Model theModel) {
+
+		// get customers from the dao
+		List<Customer> theCustomers = customerDAO.getCustomers();
+
+		// add the customers to the model
+		theModel.addAttribute("customers", theCustomers);
+
+		return "list-customers";
+	}
+}
+
+```
+
+4. Create JSP View Page
+* JSP page: list-customers.jsp
+
+```
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<!DOCTYPE html>
+<html>
+<head>
+<title>List Customers</title>
+</head>
+<body>
+	<div id="wrapper">
+		<div id="header">
+			<h2>CRM - Customer Relationship Manager</h2>
+		</div>
+	</div>
+
+	<div id="container">
+		<div id="content">
+			<!-- add out html table here -->
+			<table>
+				<tr>
+					<th>First Name</th>
+					<th>Last Name</th>
+					<th>Email</th>
+				</tr>
+
+				<!-- loop over and print our customers -->
+				<c:forEach var="tempCustomer" items="${customers}">
+					<tr>
+						<td>${tempCustomer.firstName}</td>
+						<td>${tempCustomer.lastName}</td>
+						<td>${tempCustomer.email}</td>
+					</tr>
+
+				</c:forEach>
+			</table>
+
+		</div>
+	</div>
+</body>
+</html>
+```
+
+
+## Making CSS
+1. Place CSS in a 'resources' directory
+2. Configure spring to serve up ' resources' directory
+3. Reference CSS in your JSP
+
+#### 1. Step 1
+![image](https://user-images.githubusercontent.com/11830385/28255327-addfba84-6adf-11e7-88e7-6a84da8590ff.png)
+
+#### 2. Step 2
+![image](https://user-images.githubusercontent.com/11830385/28255344-da894532-6adf-11e7-96a7-174ef01555df.png)
+
+#### 3. step 3
+![image](https://user-images.githubusercontent.com/11830385/28255357-03e1b0ea-6ae0-11e7-9d4b-03db2600cb05.png)
+
+![image](https://user-images.githubusercontent.com/11830385/28255382-43d26a00-6ae0-11e7-9998-a25b770dc16f.png)
+
+
