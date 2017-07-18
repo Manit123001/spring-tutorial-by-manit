@@ -517,3 +517,108 @@ public class CustomerController {
 ##Update sort QUERY SQL
 ![image](https://user-images.githubusercontent.com/11830385/28310174-c15e101e-6bd5-11e7-959f-3b9d99a65f6a.png)
 
+---
+
+## Hibernate Project - Part 5
+### UPDATE Customer
+1. Update list-customer.jsp
+* New "Update" link
+![image](https://user-images.githubusercontent.com/11830385/28310908-261368cc-6bd8-11e7-9ae1-a710339fa10a.png)
+![image](https://user-images.githubusercontent.com/11830385/28311535-2609d5bc-6bda-11e7-8a20-f6d8f73f874e.png)
+
+* example link Update
+http://localhost:8080/web-customer-tracker/customer/showFormForUpdate?customerId=3
+
+2. Create customer-form.jsp
+* Prepopulate the form
+* Create Controller code for : /showFormForUpdate
+* controller 
+	```
+	@GetMapping("/showFormForUpdate")
+	public String showFormForUpdate(@RequestParam("customerId") int theId,
+									Model theModel){
+		
+		// get the customer from our service
+		Customer theCustomer = customerService.getCustomer(theId);
+		
+		// set customer as a model attribute to pre-populate the form
+		theModel.addAttribute("customer", theCustomer);
+		
+		// send over to our form
+		return "customer-form";
+	}
+	```
+* form update
+```
+	<!-- add out html table here -->
+			<table>
+
+				<tr>
+					<th>First Name</th>
+					<th>Last Name</th>
+					<th>Email</th>
+					<th>Action</th>
+				</tr>
+
+				<!-- loop over and print our customers -->
+				<c:forEach var="tempCustomer" items="${customers}">
+
+					<!-- construct an "update" link with customer id -->
+					<c:url var="updateLink" value="/customer/showFormForUpdate">
+						<c:param name="customerId" value="${tempCustomer.id}" />
+					</c:url>
+
+					<tr>
+						<td>${tempCustomer.firstName}</td>
+						<td>${tempCustomer.lastName}</td>
+						<td>${tempCustomer.email}</td>
+						<td>
+							<!-- display the update link -->
+							<a href="${updateLink}">Update</a>
+						</td>
+					</tr>
+
+				</c:forEach>
+			</table>
+```
+
+* CustomerDAOImpl 
+```
+
+//	update 
+	@Override
+	public Customer getCustomer(int theId) {
+	
+		// get the current hibernate session
+		Session currentSession = sessionFactory.getCurrentSession();
+		
+		// now retrieve/read from database using the primary key
+		Customer theCustomer = currentSession.get(Customer.class, theId);
+		
+		
+		return theCustomer;
+	}
+```
+
+3. Process form data 
+* Controller > Service >DAO
+* Modify customer-form.jsp
+
+3.1 add id toForm
+```
+	<!-- need to associate this data with customer id -->
+	<form:hidden path="id"/>
+```
+3.2  update save to a saveOrUpdate
+```
+//	insert
+	@Override
+	public void saveCustomer(Customer theCustomer) {
+		// get current hibernate session
+		Session currentSession = sessionFactory.getCurrentSession();
+		
+		 
+		// save/update the customer ... finally LOL
+		currentSession.saveOrUpdate(theCustomer);
+	}
+```		
