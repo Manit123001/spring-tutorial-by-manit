@@ -512,3 +512,8 @@ public class CustomerController {
 
 ![image](https://user-images.githubusercontent.com/11830385/28309084-6e6c32d0-6bd2-11e7-8184-8a5f4cd7725c.png)
 
+---
+
+##Update sort QUERY SQL
+![image](https://user-images.githubusercontent.com/11830385/28310174-c15e101e-6bd5-11e7-959f-3b9d99a65f6a.png)
+
