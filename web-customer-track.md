@@ -498,6 +498,15 @@ public class CustomerController {
 * add implement saveCustommer(Customer theCustomer) methods
 * on method in CustomerDAO.java
 * get current hibernate session
+```
+	@Override
+	public void saveCustomer(Customer theCustomer) {
+		// get current hibernate session
+		Session currentSession = sessionFactory.getCurrentSession();
+		// save the customer ... finally LOL
+		currentSession.save(theCustomer);
+	}
+```
 
 ![image](https://user-images.githubusercontent.com/11830385/28308102-62fd49b4-6bcf-11e7-9ffe-c103534c307a.png)
 
