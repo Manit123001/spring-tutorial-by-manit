@@ -370,3 +370,136 @@ public class CustomerController {
 ** Delegate calls to Service
 ![image](https://user-images.githubusercontent.com/11830385/28263449-012f773e-6b11-11e7-998f-314d19a0e750.png)
 
+---
+## Hibernate Project - Part 4
+
+![image](https://user-images.githubusercontent.com/11830385/28304958-1c367768-6bc4-11e7-9c60-a9cb8ef76433.png)
+
+![image](https://user-images.githubusercontent.com/11830385/28305034-5b39c758-6bc4-11e7-9067-9c1d9357b531.png)
+
+1. Update list-customer.jsp
+
+* Add Customer Button
+<!-- put new button: Add Customer -->
+<input type="button" value="Add Customer"
+	onclick="window.location.href='showFormForAdd'; return false;"
+	class="add-button"
+/>
+
+---
+
+![image](https://user-images.githubusercontent.com/11830385/28305034-5b39c758-6bc4-11e7-9067-9c1d9357b531.png)
+![image](https://user-images.githubusercontent.com/11830385/28306482-a72a94ee-6bc9-11e7-87d1-c2676d2c0e11.png)
+
+
+2. Create HTML form for new customer
+* add code to CustomerController.java
+```
+	@GetMapping("/showFormForAdd")
+	public String showFormForAdd(Model theModel) {
+
+		return "customer-form";
+	}
+```
+* new form
+```
+	@GetMapping("/showFormForAdd")
+	public String showFormForAdd(Model theModel) {
+
+		// creat model attribute to bind form data
+		Customer theCustomer = new Customer();
+		
+		theModel.addAttribute("customer", theCustomer);
+		
+		return "customer-form";
+	}
+```
+
+![image](https://user-images.githubusercontent.com/11830385/28307077-d7a8215c-6bcb-11e7-86b2-02c4b58df7d2.png)
+
+* Let's create customer-form.jsp
+```
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+```
+* link css
+```
+	<link type="text/css"
+		rel="stylesheet"
+		href="${pageContext.request.contextPath}/resources/css/style.css">
+
+	<link type="text/css"
+		rel="stylesheet"
+		href="${pageContext.request.contextPath}/resources/css/add-customer-style.css">
+	
+```
+
+* form of spring
+```
+	<form:form action="saveCustomer" modelAttribute="customer" method="POST">
+			<table>
+				<tbody>
+					<tr>
+						<td><label>First name:</label></td>
+						<td><form:input path="firstName"/></td>
+					</tr>
+					
+					<tr>
+						<td><label>Last name:</label></td>
+						<td><form:input path="lastName" /></td>
+					</tr>
+					
+					<tr>
+						<td><label>Email:</label></td>
+						<td><form:input path="email"/></td>
+					</tr>
+					
+					<tr>
+						<td><label></label></td>
+						<td><input type="submit" value="Save" class="save"/></td>
+					</tr>
+					
+				</tbody>
+			</table>
+		</form:form>
+		<div style="clear; both;"></div>
+		<p>
+			<a href="${pageContext.request.contextPath}/customer/list">Back to List</a>
+		</p>
+
+```
+
+![image](https://user-images.githubusercontent.com/11830385/28307381-eb7be4e2-6bcc-11e7-89e9-4d88d51a0e58.png)
+
+![image](https://user-images.githubusercontent.com/11830385/28300880-9d98053c-6bac-11e7-9f1d-d9a5cdeb8f4c.png)
+
+
+
+
+3. Process Form Data 
+* Controller -> Service -> DAO
+* Review our HTML form: customer-form.jsp
+```
+	@PostMapping("/saveCustomer")
+	public  String saveCustomer(@ModelAttribute("customer") Customer theCustomer){
+	
+		
+		// save the customer using our service
+		customerService.saveCustomer(theCustomer);
+		
+		
+		return "redirect:/customer/list";
+	}
+```
+
+![image](https://user-images.githubusercontent.com/11830385/28307679-d82dea92-6bcd-11e7-95f3-273e72153105.png)
+
+* auto create interface **saveCustommer(theCustomer);** on service
+* create method intype on CustomerDAO 
+* add implement saveCustommer(Customer theCustomer) methods
+* on method in CustomerDAO.java
+* get current hibernate session
+
+![image](https://user-images.githubusercontent.com/11830385/28308102-62fd49b4-6bcf-11e7-9ffe-c103534c307a.png)
+
+![image](https://user-images.githubusercontent.com/11830385/28309084-6e6c32d0-6bd2-11e7-8184-8a5f4cd7725c.png)
+
