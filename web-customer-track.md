@@ -622,3 +622,65 @@ http://localhost:8080/web-customer-tracker/customer/showFormForUpdate?customerId
 		currentSession.saveOrUpdate(theCustomer);
 	}
 ```		
+---
+## Hibernate Project - Part 6
+### Delete Customer
+
+![image](https://user-images.githubusercontent.com/11830385/28349118-00a82c24-6c6b-11e7-8f28-833d968b0ffd.png)
+1. Add Delete link on JSP
+
+```
+				<!-- loop over and print our customers -->
+				<c:forEach var="tempCustomer" items="${customers}">
+
+					<!-- construct an "update" link with customer id -->
+					<c:url var="updateLink" value="/customer/showFormForUpdate">
+						<c:param name="customerId" value="${tempCustomer.id}" />
+					</c:url>
+					
+					<!-- construct an "update" link with customer id -->
+					<c:url var="deleteLink" value="/customer/delete">
+						<c:param name="customerId" value="${tempCustomer.id}" />
+					</c:url>
+
+					<tr>
+						<td>${tempCustomer.firstName}</td>
+						<td>${tempCustomer.lastName}</td>
+						<td>${tempCustomer.email}</td>
+						<td>
+							<!-- display the update link -->
+							<a href="${updateLink}">Update </a>
+							|
+							<a href="${deleteLink}"
+								onclick="if(!(confirm('Are you sure you want to delete this customer?'))) return false">Delete</a>
+						</td>
+					</tr>
+
+				</c:forEach>
+```
+
+2. Add code for "Delete"
+* Controller > Service > DAO
+* DAO
+
+![image](https://user-images.githubusercontent.com/11830385/28349655-4f4548dc-6c6e-11e7-80f8-4038599b12e2.png)
+```
+	// delete
+	@Override
+	public void deleteCustomer(int theId) {
+
+		// get the current hibernate session
+		Session currentSession = sessionFactory.getCurrentSession();
+
+		
+		// delete object with primary key
+		Query theQuery = 
+				currentSession.createQuery("delete from Customer where id=:customerId");
+		
+		theQuery.setParameter("customerId", theId);
+		
+		theQuery.executeUpdate();
+	}
+
+
+```
